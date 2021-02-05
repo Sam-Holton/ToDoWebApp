@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoWebApp.Models;
+using ToDoWebApp.Models.DALModels;
 using ToDoWebApp.Services;
 
 namespace ToDoWebApp.Controllers
@@ -23,6 +24,12 @@ namespace ToDoWebApp.Controllers
 
         public IActionResult Login()
         {
+            LoginViewModel loginViewModel = new LoginViewModel();
+
+            ToDoUsersDAL toDoUsersDAL = _toDoWebAppContext.ToDoUsers
+                .Where(toDoUsersDAL => toDoUsersDAL.UserName == loginViewModel.UserName && toDoUsersDAL.UserPassword == loginViewModel.UserPassword)
+                .FirstOrDefault();
+
             return View();
         }
 
@@ -34,6 +41,15 @@ namespace ToDoWebApp.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        private ToDoUsersDAL GetUserWhereIdIsFirstOrDefault(int id)
+        {
+            ToDoUsersDAL toDoUsersDAL = _toDoWebAppContext.ToDoUsers
+                .Where(toDoUsersDAL => toDoUsersDAL.UserID == id)
+                .FirstOrDefault();            
+
+            return toDoUsersDAL;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

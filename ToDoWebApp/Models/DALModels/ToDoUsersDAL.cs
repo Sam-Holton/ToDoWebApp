@@ -12,6 +12,7 @@ namespace ToDoWebApp.Models.DALModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
+        public string UserName { get; set; }
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
         public List<ToDoItemsDAL> ToDoItems { get; set; }        
